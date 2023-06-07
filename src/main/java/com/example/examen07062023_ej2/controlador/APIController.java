@@ -75,7 +75,7 @@ public class APIController {
         List<Lugar> lugares = servicio.obtenerTodosLugares();
         List<EntityModel> modelsOut = new ArrayList<>();
         for (Lugar l : lugares) {
-            WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getOneLugar(l.getId_lugar()));
+            WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getOneLugar(l.getIdLugar()));
             modelsOut.add(EntityModel.of(l).add(link.withRel("link-conductor")));
         }
         return modelsOut;
@@ -91,7 +91,7 @@ public class APIController {
     @PostMapping("/newLugar")
     public EntityModel<Lugar> postNewLugar(@RequestBody Lugar lugar){
         Lugar lugar_out = servicio.crearNuevoLugar(lugar);
-        WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getOneLugar(lugar_out.getId_lugar()));
+        WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getOneLugar(lugar_out.getIdLugar()));
         return EntityModel.of(lugar_out).add(link.withRel("link-conductor"));
     }
 
@@ -119,6 +119,17 @@ public class APIController {
         Visita visita_out = servicio.crearNuevaVisita(visita);
         WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getOneVisita(visita_out.getId()));
         return EntityModel.of(visita_out).add(link.withRel("link-conductor"));
+    }
+
+    @GetMapping("/getVisita/{matricula}")
+    public List<EntityModel> getVisitaMatricula(@PathVariable("matricula") String matricula){
+        List<Visita> visitasBus = servicio.buscarVisitaPorAutobus(matricula);
+        List<EntityModel> modelsOut = new ArrayList<>();
+        for (Visita v : visitasBus) {
+            WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getOneVisita(v.getId()));
+            modelsOut.add(EntityModel.of(v).add(link.withRel("link-conductor")));
+        }
+        return modelsOut;
     }
 
 

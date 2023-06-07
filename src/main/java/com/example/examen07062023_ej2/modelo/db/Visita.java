@@ -27,6 +27,6 @@ public class Visita {
     private Conductor dni;
 
     @ManyToOne
-    @JoinColumn(name = "id_lugar", foreignKey = @ForeignKey(name = "FK_VISITA_LUGAR"))
-    private Lugar id_lugar;
+    @JoinColumn(name = "idLugar", foreignKey = @ForeignKey(name = "FK_VISITA_LUGAR"))
+    private Lugar idLugar;
 }

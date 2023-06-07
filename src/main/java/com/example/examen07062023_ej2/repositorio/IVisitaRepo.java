@@ -11,16 +11,16 @@ import java.util.List;
 
 @Repository
 public interface IVisitaRepo extends JpaRepository<Visita, Integer> {
-    @Query("FROM Visita v WHERE v.matricula = :matricula")
+    @Query("FROM Visita v WHERE v.matricula.matricula = :matricula")
     public List<Visita> visitaPorAutobus(@Param("matricula") String matricula);
 
     @Query("FROM Visita v WHERE v.dni = :dni")
     public List<Visita> visitaPorConductor(@Param("dni") String dni);
 
-    @Query("FROM Visita v WHERE v.id_lugar = :idLugar")
+    @Query("FROM Visita v WHERE v.idLugar = :idLugar")
     public List<Visita> visitaPorLugar(@Param("idLugar") int idLugar);
 
-    @Query("FROM Visita v WHERE v.matricula = :matricula AND v.dni = :dni AND v.id_lugar = :idLugar AND v.f_visita = :fecha")
+    @Query("FROM Visita v WHERE v.matricula = :matricula AND v.dni = :dni AND v.idLugar = :idLugar AND v.f_visita = :fecha")
     public Visita visitaPorTodosParametros(@Param("matricula") String matricula, @Param("dni") String dni, @Param("idLugar") int id_Lugar, @Param("fecha")Date fecha);
 
     @Query("FROM Visita v WHERE v.matricula = :matricula AND v.f_visita = :fecha")
@@ -30,6 +30,6 @@ public interface IVisitaRepo extends JpaRepository<Visita, Integer> {
     public List<Visita> visitaPorConductorFecha(@Param("dni") String dni,@Param("fecha") Date fecha);
 
 
-    @Query("FROM Visita v WHERE v.id_lugar = :idLugar AND v.f_visita = :fecha")
+    @Query("FROM Visita v WHERE v.idLugar = :idLugar AND v.f_visita = :fecha")
     public List<Visita> visitaPorLugarFecha(@Param("idLugar") int id_lugar, @Param("fecha") Date fecha);
 }
