@@ -86,6 +86,9 @@ public class ServicioAutobuses implements IServicio {
 
     @Override
     public Visita crearNuevaVisita(Visita visita) {
+        Autobus auto_busq = autobusRepo.findById(visita.getMatricula().getMatricula()).orElse(autobusRepo.saveAndFlush(visita.getMatricula()));
+        Lugar lugar_busq = lugarRepo.findById(visita.getId_lugar().getId_lugar()).orElse(lugarRepo.saveAndFlush(visita.getId_lugar()));
+        Conductor cond_busq = conductorRepo.findById(visita.getDni().getDni()).orElse(conductorRepo.saveAndFlush(visita.getDni()));
         return visitaRepo.saveAndFlush(visita);
     }
 
